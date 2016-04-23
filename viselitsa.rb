@@ -11,7 +11,7 @@ require current_path + "/result_printer.rb"
 require current_path + "/word_reader.rb"
 
 
-puts "Игра виселица. Версия 3. C чтением данных из файлов. (c) 2014 Mike Butlitsky\n\n"
+puts "Игра виселица. Версия 3. C чтением данных из файлов.\n\n"
 
 # создаю объект, печатающий результаты
 printer = ResultPrinter.new

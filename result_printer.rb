@@ -9,15 +9,15 @@ class ResultPrinter
     current_path = File.dirname(__FILE__)
     counter = 0 # счетчик шагов
 
-    while counter <=7 do # в цикле прочитаю 7 файлов и запишу из содержимое в массив
+    while counter <= 7 do # в цикле прочитаю 7 файлов и запишу из содержимое в массив
       # изображения виселиц лежат в папке /image/ в файлах 0.txt, 1.txt, 2.txt и т. д.
       file_name = current_path + "/image/#{counter}.txt"
 
-      if File.exist?(file_name)
+      begin
         f = File.new(file_name, "r:UTF-8") # вторым параметром явно указываю на кодировку файла
         @status_image << f.read # добавляю все содержимое файла в массив
         f.close
-      else
+      rescue Errno::ENOENT
         @status_image << "\n [ изображение не найдено ] \n" # если файла нет, будет "заглушка"
       end
 
@@ -38,11 +38,10 @@ class ResultPrinter
     cls
     puts "\nСлово: #{get_word_for_print(game.letters, game.good_letters)}"
 
-    # puts "Ошибки (#{game.errors}): #{game.bad_letters.to_s}" / 2 заменяется на:
+    # puts "Ошибки (#{game.errors_count}): #{game.bad_letters.to_s}" / 2 заменяется на:
     puts "\nОшибки: #{game.bad_letters.join(", ")}"
-    # метод join возвращает элементы массива, объединенные в строку, с заданным разделителем
 
-    print_viselitsa(game.errors)
+    print_viselitsa(game.errors_count)
 
     if game.status == -1
       puts "\nВы проиграли :(\n"
@@ -51,7 +50,7 @@ class ResultPrinter
     elsif game.status == 1
       puts "Поздравляем, вы выиграли!\n\n"
     else
-      puts "У вас осталось ошибок: " + (7 - game.errors).to_s
+      puts "У вас осталось ошибок: " + (7 - game.errors_count).to_s
     end
   end
 
@@ -71,6 +70,7 @@ class ResultPrinter
     return result
   end
 
+  # метод чистит экран
   def cls
     system "clear" or system "cls"
   end

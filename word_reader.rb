@@ -13,7 +13,8 @@ class WordReader
   # имя файла передается как аргумент метода
   def read_from_file(file_name)
     # проверка, если файла не существует, сразу возвращаю nil
-    if !File.exist?(file_name)
+    begin
+    rescue Errno::ENOENT
       return nil
     end
 

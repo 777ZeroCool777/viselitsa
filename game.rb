@@ -3,10 +3,12 @@
 # Основной класс игры. Хранит состояние игры и предоставляет функции
 # для развития игры (ввод новых букв, подсчет кол-ва ошибок и т. п.)
 
-require_relative 'result_printer.rb'
 require 'unicode_utils/downcase' # этот гем преобразует буквы в заданный регистр
 
 class Game
+
+  attr_reader :letters, :good_letters, :bad_letters, :errors_count, :status
+
   # в конструктор передется слово
   def initialize(slovo)
     # инициализирую данные как поля класса
@@ -15,7 +17,7 @@ class Game
     @slovo = slovo.encode("utf-8")
 
     # переменная-индикатор кол-ва ошибок, всего можно сделать не более 7 ошибок
-    @errors = 0
+    @errors_count = 0
 
     # массивы, хранящие угаданные и неугаданные буквы
     @good_letters = []
@@ -46,7 +48,7 @@ class Game
   # Основной метод игры "сделать следующий шаг"
   # В качестве параметра принимает букву
   # Основная логика взята из метода
-  def next_step(bukva)
+  def make_next_step(bukva)
 
     # Предварительная проверка: если статус игры равен 1 или -1, значит игра закончена,
     # нет смысла дальше делать шаг
@@ -73,9 +75,9 @@ class Game
 
       @bad_letters << bukva
 
-      @errors += 1
+      @errors_count += 1
 
-      if @errors >= 7 # если ошибок больше 7 - статус игры -1, проигрышь
+      if @errors_count >= 7 # если ошибок больше 7 - статус игры -1, проигрышь
         @status = -1
       end
     end
@@ -91,8 +93,8 @@ class Game
 
       # проверка для букв е, ё
       if (letter == "е" || letter == "ё") && @letters.include?("е") && @letters.include?("ё")
-        next_step("е")
-        next_step("ё")
+        make_next_step("е")
+        make_next_step("ё")
       elsif letter == "ё" &&  @letters.include?("е")
         letter = "е".chomp
 
@@ -102,23 +104,6 @@ class Game
     end
 
     # после получения ввода, передаю управление в основной метод игры
-    next_step(letter)
-  end
-
-  # геттеры
-  def errors
-    @errors
-  end
-
-  def letters
-    @letters
-  end
-
-  def good_letters
-    @good_letters
-  end
-
-  def bad_letters
-    @bad_letters
+    make_next_step(letter)
   end
 end
