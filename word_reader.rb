@@ -12,18 +12,14 @@ class WordReader
   # Метод, возвращающий случайное слово, прочитанное из файла,
   # имя файла передается как аргумент метода
   def read_from_file(file_name)
-    # проверка, если файла не существует, сразу возвращаю nil
     begin
-    rescue Errno::ENOENT
-      return nil
+      f = File.new(file_name, 'r:utf-8')
+      lines = f.readlines
+      f.close
+      return lines.sample.chomp
+    rescue Errno::ENOENT => e
+      puts "Файл не найден"
+      abort e.message
     end
-
-    f = File.new(file_name, "r:UTF-8") # открываю файл, указывая его кодировку
-    lines = f.readlines   # читаю все строки в массив
-    f.close # закрываю файл
-
-    return lines.sample.chomp
-    # возвращаю случайную строчку из прочитанного массива,
-    # и удалю в конце перенос строки
   end
 end
