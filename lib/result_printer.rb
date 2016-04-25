@@ -11,7 +11,7 @@ class ResultPrinter
 
     while counter <= 7 do # в цикле прочитаю 7 файлов и запишу из содержимое в массив
       # изображения виселиц лежат в папке /image/ в файлах 0.txt, 1.txt, 2.txt и т. д.
-      file_name = current_path + "/image/#{counter}.txt"
+      file_name = current_path + "../../image/#{counter}.txt"
 
       begin
         f = File.new(file_name, "r:UTF-8") # вторым параметром явно указываю на кодировку файла
@@ -31,6 +31,18 @@ class ResultPrinter
     puts @status_image[errors] # все картинки загружены в массив @status_image в конструкторе
   end
 
+  # склонятор слова "Ошибки"
+  def sklonyator_errors(errors_count)
+
+    if (errors_count >= 5 && errors_count <= 7) || errors_count == 0
+      return "Ошибок"
+    elsif errors_count == 1
+      return "Ошибка"
+    else
+      return "Ошибки"
+    end
+  end
+
 
   # основной метод, печатающий состояния объекта класса Game,
   # который нужно передать в качестве параметра
@@ -38,8 +50,7 @@ class ResultPrinter
     cls
     puts "\nСлово: #{get_word_for_print(game.letters, game.good_letters)}"
 
-    # puts "Ошибки (#{game.errors_count}): #{game.bad_letters.to_s}" / 2 заменяется на:
-    puts "\nОшибки: #{game.bad_letters.join(", ")}"
+    puts "\n#{sklonyator_errors(game.errors_count)}: #{game.bad_letters.join(", ")}"
 
     print_viselitsa(game.errors_count)
 

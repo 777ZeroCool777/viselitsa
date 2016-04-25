@@ -1,5 +1,4 @@
 # encoding: utf-8
-#
 # Основной класс игры. Хранит состояние игры и предоставляет функции
 # для развития игры (ввод новых букв, подсчет кол-ва ошибок и т. п.)
 
@@ -12,7 +11,7 @@ class Game
   # в конструктор передется слово
   def initialize(slovo)
     # инициализирую данные как поля класса
-    @letters = get_letters(slovo)
+    @letters = get_letters(UnicodeUtils.downcase(slovo))
 
     @slovo = slovo.encode("utf-8")
 
@@ -36,12 +35,6 @@ class Game
     end
 
     return slovo.split("")
-  end
-
-  # Метод возвращает статус игры
-  # 0 – игра активна, -1 – игра закончена поражением, 1 – игра закончена победой
-  def status
-    return @status
   end
 
 

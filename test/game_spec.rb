@@ -15,8 +15,8 @@ describe 'Game' do
     game = Game.new("лол")
 
     # эмитирую победу :)
-    game.next_step("л")
-    game.next_step("о")
+    game.make_next_step("л")
+    game.make_next_step("о")
 
     expect(game.status).to eq 1
     #easy
@@ -30,13 +30,13 @@ describe 'Game' do
     game = Game.new("лол")
 
     # эмитирую поражение :(
-    game.next_step("г")
-    game.next_step("е")
-    game.next_step("к")
-    game.next_step("а")
-    game.next_step("р")
-    game.next_step("и")
-    game.next_step("м")
+    game.make_next_step("г")
+    game.make_next_step("е")
+    game.make_next_step("к")
+    game.make_next_step("а")
+    game.make_next_step("р")
+    game.make_next_step("и")
+    game.make_next_step("м")
 
     expect(game.status).to eq -1
 
