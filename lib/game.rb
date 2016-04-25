@@ -92,7 +92,7 @@ class Game
         letter = "е".chomp
 
       elsif letter == "е" &&  @letters.include?("ё")
-        letter = "ё".chomp
+        letter = "ё"
       end
     end
 
