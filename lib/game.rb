@@ -89,7 +89,7 @@ class Game
         make_next_step("е")
         make_next_step("ё")
       elsif letter == "ё" &&  @letters.include?("е")
-        letter = "е".chomp
+        letter = "е"
 
       elsif letter == "е" &&  @letters.include?("ё")
         letter = "ё"
