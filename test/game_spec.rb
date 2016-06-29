@@ -4,7 +4,7 @@
 # подключаю библиотеку RSpec
 require 'rspec'
 # подключаю game
-require '../game.rb'
+require '../lib/game.rb'
 
 describe 'Game' do
 
