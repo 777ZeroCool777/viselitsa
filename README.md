@@ -17,6 +17,6 @@ https://ru.wikipedia.org/wiki/Виселица_(игра)
 
 `ruby viselitsa.rb (сюда можно передать своё слово)`
 
-## Потдерживаемые ОС
+## Поддерживаемые  ОС
 
 **Windows**, **Linux**, **Mac OS**
