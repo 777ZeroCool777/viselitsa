@@ -6,12 +6,11 @@ class ResultPrinter
     # создаю поле класса, массив, хранящий изображения виселиц
     @status_image = []
 
-    current_path = File.dirname(__FILE__)
     counter = 0 # счетчик шагов
 
     while counter <= 7 do # в цикле прочитаю 7 файлов и запишу из содержимое в массив
       # изображения виселиц лежат в папке /image/ в файлах 0.txt, 1.txt, 2.txt и т. д.
-      file_name = current_path + "../../image/#{counter}.txt"
+      file_name = "image/#{counter}.txt"
 
       begin
         f = File.new(file_name, "r:UTF-8") # вторым параметром явно указываю на кодировку файла
